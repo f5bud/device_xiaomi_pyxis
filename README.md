@@ -1,29 +1,25 @@
 # Device tree for Xiaomi Mi 9 Lite
-## ** To build OrangeFox recovery
-1) create a directory and go there
-2) goto https://gitlab.com/OrangeFox/sync and read instructions
-3) sync with branch 12.1
-4) Copy (device_xiaomi_pyxis files) in device/xiaomi/pyxis
-## ** To build TWPR recovery
-1) create a directory and go there
-2) repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
-3) repo sync -c --force-sync --prune --no-clone-bundle --no-tags
-4) Copy (device_xiaomi_pyxis files) in device/xiaomi/pyxis
-## For standard partition comment in device.mk
-- BOARD_USES_METADATA_PARTITION  := true
-- PRODUCT_USE_DYNAMIC_PARTITIONS := true
-- PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
-## For dymanic partition leave these 3 lines
-## ** To compile:
-- export ALLOW_MISSING_DEPENDENCIES=true
-- export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
-- export LC_ALL="C"
+## TWRP recovery for dymanic partition:
 - export USE_CCACHE=1
+- export ALLOW_MISSING_DEPENDENCIES=true
+- export OUT_DIR=out.pyxis.dyn.part
+
+- source build/envsetup.sh
+- croot
+- lunch twrp_pyxis-eng && mka recoveryimage
+
+### Result in out.pyxis.dyn.part/target/product/pyxis/recovery.img
+
+## TWRP recovery for standard partition:
+- export USE_CCACHE=1
+- export ALLOW_MISSING_DEPENDENCIES=true
+- export OUT_DIR=out.pyxis.std.part
+
 - source build/envsetup.sh
 - croot
 - lunch twrp_pyxis-eng && mka adbd recoveryimage
 
-## Result in out/target/product/pyxis/recovery.img
+### Result in out.pyxis.std.part/target/product/pyxis/recovery.img
 
 Device configuration for Xiaomi Mi 9 Lite
 =========================================
