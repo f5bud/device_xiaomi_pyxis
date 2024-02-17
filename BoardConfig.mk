@@ -43,7 +43,7 @@ endif
 # -----------------------------------------------
 # CRYPT SECURITY don't touch this values !!!
 # -----------------------------------------------
-PLATFORM_VERSION := 13
+PLATFORM_VERSION := 14
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)
 
 PLATFORM_SECURITY_PATCH := 2099-12-31

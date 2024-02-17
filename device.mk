@@ -20,12 +20,12 @@ RECOVERY_SDCARD_ON_DATA        := true
 # -----------------------------------------------
 # Dynamic partitions
 # -----------------------------------------------
-# FOR STANDART PARTITION COMMENT THIS
-# -----------------------------------------------
-BOARD_USES_METADATA_PARTITION  := true
-PRODUCT_USE_DYNAMIC_PARTITIONS := true
+ifeq ($(OUT_DIR), out.pyxis.dyn.part)
+	BOARD_USES_METADATA_PARTITION  := true
+	PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+	PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+endif
 
 # -----------------------------------------------
 # fastbootd
@@ -43,17 +43,20 @@ PRODUCT_SOONG_NAMESPACES += $(DEVICE_PATH)
 # -----------------------------------------------
 # TWRP specific build flags
 # -----------------------------------------------
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXCLUDE_ENCRYPTED_BACKUPS:= false
-TW_EXCLUDE_PYTHON           := true
-TW_INCLUDE_CRYPTO_FBE       := true
-TW_INCLUDE_CRYPTO           := true
-TW_INCLUDE_FASTBOOTD        := true
-TW_INCLUDE_RESETPROP        := true
-TW_USE_FSCRYPT_POLICY       := 1
-TW_USE_TOOLBOX              := true
+TW_EXCLUDE_DEFAULT_USB_INIT    := true
+TW_EXCLUDE_ENCRYPTED_BACKUPS   := false
+TW_EXCLUDE_PYTHON              := true
+TW_INCLUDE_CRYPTO_FBE          := true
+TW_INCLUDE_CRYPTO              := true
+TW_INCLUDE_FASTBOOTD           := true
+TW_INCLUDE_RESETPROP           := true
+TW_USE_FSCRYPT_POLICY          := 1
+TW_USE_TOOLBOX                 := true
+TW_USE_LEGACY_BATTERY_SERVICES := true
 
+#TW_CUSTOM_BATTERY_PATH  := "/sys/class/power_supply/battery"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone6/temp"
+
 TW_DEFAULT_BRIGHTNESS   := 800
 TW_H_OFFSET             := -80
 TW_INPUT_BLACKLIST      := "hbtp_vm"
@@ -61,10 +64,12 @@ TW_MAX_BRIGHTNESS       := 2047
 TW_THEME                := portrait_hdpi
 TW_Y_OFFSET             :=  80
 
+TW_NO_HAPTICS := true
+
 ifeq ($(PRODUCT_USE_DYNAMIC_PARTITIONS),true)
-	TW_DEVICE_VERSION := 'Pyxis-DynPart'
+	TW_DEVICE_VERSION := 'DynPart-14'
 else
-	TW_DEVICE_VERSION := 'Pyxis-StdPart'
+	TW_DEVICE_VERSION := 'StdPart-14'
 endif
 # -----------------------------------------------
 # TWRP Debugging
